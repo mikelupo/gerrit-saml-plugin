@@ -22,7 +22,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.eclipse.jgit.lib.Config;
 import org.pac4j.core.context.J2EContext;
-import org.pac4j.core.exception.RequiresHttpAction;
+import org.pac4j.core.exception.HttpAction;
 import org.pac4j.core.exception.TechnicalException;
 import org.pac4j.saml.client.SAML2Client;
 import org.pac4j.saml.client.SAML2ClientConfiguration;
@@ -109,7 +109,7 @@ class SamlWebFilter implements Filter {
         else return user;
     }
 
-    private void signin(J2EContext context) throws RequiresHttpAction, IOException {
+    private void signin(J2EContext context) throws HttpAction, IOException {
         SAML2Credentials credentials = saml2Client.getCredentials(context);
         SAML2Profile user = saml2Client.getUserProfile(credentials, context);
         if (user != null) {
@@ -159,13 +159,13 @@ class SamlWebFilter implements Filter {
             } else {
                 chain.doFilter(httpRequest, httpResponse);
             }
-        } catch (final RequiresHttpAction requiresHttpAction) {
-            throw new TechnicalException("Unexpected HTTP action", requiresHttpAction);
+        } catch (final HttpAction HttpAction) {
+            throw new TechnicalException("Unexpected HTTP action", HttpAction);
         }
     }
 
     private void redirectToIdentityProvider(J2EContext context)
-            throws RequiresHttpAction {
+            throws HttpAction {
         String redirectUri = Url.decode(context
                 .getRequest()
                 .getRequestURI()
@@ -173,7 +173,7 @@ class SamlWebFilter implements Filter {
                         context.getRequest().getContextPath().length()));
         context.setSessionAttribute(SAML2Client.SAML_RELAY_STATE_ATTRIBUTE, redirectUri);
         log.debug("Setting redirectUri: {}", redirectUri);
-        saml2Client.redirect(context, true);
+        saml2Client.redirect(context);
     }
 
     private static boolean isGerritLogin(HttpServletRequest request) {

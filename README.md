@@ -42,6 +42,7 @@ You can then [go here](doc/Setup_ADFS.md) for more details on howto make gerrit-
 
 Download Gerrit SAML plugin for the appropriate version of gerrit:
 
+- [gerrit-saml-plugin-2.13.6-1.jar](https://dl.bintray.com/mikelupo/artifacts/gerrit-saml-plugin-2.13.6-1.jar) and put it in $gerrit_site/lib/.
 - [gerrit-saml-plugin-2.12-1.jar](https://bintray.com/artifact/download/thesamet/maven/gerrit-saml-plugin-2.12-1.jar) and put it in $gerrit_site/lib/.
 - [gerrit-saml-plugin-2.11.5-1.jar](https://bintray.com/artifact/download/thesamet/maven/gerrit-saml-plugin-2.11.5-1.jar) and put it in $gerrit_site/lib/.
 
